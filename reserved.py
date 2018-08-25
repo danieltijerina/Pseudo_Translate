@@ -7,3 +7,4 @@ cpp = {
 
 }
 
+py={'print':'print'}
