@@ -21,28 +21,42 @@
         left: 0;
         right: 0;
     }
+    #button_picker {
+        background-color: #dcdcdc;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
     </style>
 </head>
     <body>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Whatever</a>
+            </div>
+          </div><!-- /.container-fluid -->
+        </nav>
 
-        <div class="col-md-2" style="height: 100%">
+        <div id="button_picker" class="col-md-2" style="height: 100%">
             
         </div>
 
-        <div class="col-md-10" style="height:100%">
-            <pre id="editor">function foo(items) {
-                var i;
-                for (i = 0; i &lt; items.length; i++) {
-                    alert("Ace Rocks " + items[i]);
-                }
-            }</pre>
+        <div class="container col-md-10" style="height:100%">
+<pre id="editor">function foo(items) {
+    var i;
+    for (i = 0; i &lt; items.length; i++) {
+        alert("Ace Rocks " + items[i]);
+    }
+}</pre>
         </div>
 
         <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/twilight");
-            editor.session.setMode("ace/mode/javascript");
+            editor.session.setMode("ace/mode/text");
         </script>
     </body>
 </html>

@@ -11,9 +11,6 @@ language = sys.argv[2]
 output_file = open("output.cpp", 'w')
 content = my_file.readlines()
 
-def endfile() :
-	output_file.write('}\n')
-
 def startfile():
         output_file.write('#include <iostream>\n')
         output_file.write('using namespace std;\n\n')
@@ -31,17 +28,10 @@ def makeprintcpp(printOutput):
 
 def makeforcpp(words_in_line):
 	global indent
-	output_string = indent + "for(int "
-	output_string += words_in_line[1]
-	output_string += " = "
-	output_string += words_in_line[3]
-	output_string += "; "
-	output_string += words_in_line[1]
-	output_string += " <= "
-	output_string += words_in_line[5]
-	output_string += "; "
-	output_string += words_in_line[1]
-	output_string += "++) {\n"
+	output_string = indent + "for(int " + words_in_line[1]
+	output_string += " = " + words_in_line[3] + "; "
+	output_string += words_in_line[1] + " <= " + words_in_line[5] + "; "
+	output_string += words_in_line[1] + "++) {\n"
 	output_file.write(output_string)
 	next_line = nextline()
 	indent += "\t"
@@ -154,4 +144,3 @@ startfile()
 while current_line < len(content):
 	words_in_line  = nextline()
 	checkToken(words_in_line)
-#endfile()
