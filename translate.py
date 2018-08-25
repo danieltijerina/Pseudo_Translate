@@ -51,7 +51,7 @@ def makeforcpp(words_in_line):
 def makeIfcpp(words_in_line):
 	words_in_line.pop(0)
 	global indent
-	output_string = indent + "if ("
+	output_string = indent + "if ( "
 	for word in words_in_line:
 		output_string += word + " "
 	output_string += ") { \n"
@@ -62,6 +62,16 @@ def makeElsecpp(words_in_line):
 	global indent
 	indent = indent[0:len(indent)-3]
 	output_string = indent + "} else { \n"
+	output_file.write(output_string+"\n")
+	indent += "\t"
+
+def makeElseIfcpp(words_in_line)
+	global indent
+	indent = indent[0:len(indent)-3]
+	output_string = indent + "} else if ( "
+	for word in words_in_line:
+		output_string += word + " "
+	output_string += ") { \n"
 	output_file.write(output_string+"\n")
 	indent += "\t"
 
@@ -96,7 +106,7 @@ cpp_reserved = {
         # condition tokens
 	'if' : makeIfcpp,
         'else' : makeElsecpp,
-        #'elif' : makeElseIfcpp,
+        'elif' : makeElseIfcpp,
         'endif' : makeEndIfcpp,
 
 }
