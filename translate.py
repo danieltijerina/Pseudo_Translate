@@ -17,7 +17,7 @@ def startfile():
         output_file.write('using namespace std;\n\n')
 	output_file.write('int main() {\n')
 
-def makeprint(printOutput):
+def makeprintcpp(printOutput):
 	printOutput.pop(0)
         output_string = "cout  "
         for word in printOutput:
@@ -26,6 +26,9 @@ def makeprint(printOutput):
         output_string += ";"
         output_file.write(output_string)
 	output_file.write('\n')
+
+def makeforcpp(words_in_line):
+	print(words_in_line)
 
 def nextline():
 	global current_line
@@ -43,7 +46,7 @@ def checkToken(words_in_line):
 cpp_reserved = {
         # print tokens
         'var' : 'auto',
-        'print' : makeprint,
+        'print' : makeprintcpp,
         ',' : '<<'
 
         # loop tokens
