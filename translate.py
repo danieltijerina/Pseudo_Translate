@@ -30,7 +30,23 @@ def makeprintcpp(printOutput):
 	output_file.write('\n')
 
 def makeforcpp(words_in_line):
-	print(words_in_line)
+	output_string = "for(int "
+	output_string += words_in_line[1]
+	output_string += " = "
+	output_string += words_in_line[3]
+	output_string += "; "
+	output_string += words_in_line[1]
+	output_string += " <= "
+	output_string += words_in_line[5]
+	output_string += "; "
+	output_string += words_in_line[1]
+	output_string += "++) {\n"
+	output_file.write(output_string)
+	next_line = nextline()
+	while next_line[0] != 'endfor':
+		checkToken(next_line)
+		next_line = nextline()
+	output_file.write('}\n') 
 
 def makeIfcpp(words_in_line):
 	words_in_line.pop(0)
@@ -73,6 +89,7 @@ cpp_reserved = {
         'var' : 'auto',
         'print' : makeprintcpp,
         ',' : '<<',
+        'for' : makeforcpp,
 
         # loop tokens
 
