@@ -1,5 +1,5 @@
 import sys
-from reserved import py, cpp 
+#from reserved import py, cpp 
 import shlex
 
 def endfile() :
@@ -7,7 +7,8 @@ def endfile() :
 
 def startfile():
         output_file.write('#include <iostream>\n')
-        output_file.write('int main() {\n')
+        output_file.write('using namespace std;\n\n')
+	output_file.write('int main() {\n')
 
 def makeprint(printOutput):
         output_string = "cout  "
