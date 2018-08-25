@@ -21,17 +21,17 @@ def startfile():
 
 def makeprintcpp(printOutput):
 	printOutput.pop(0)
-        output_string = "cout "
-        for word in printOutput:
-                output_string += " << "
-                output_string += word
-        output_string += ";"
-        output_file.write(output_string)
+	output_string = indent + "cout"
+	for word in printOutput:
+	        output_string += " << "
+	        output_string += word
+	output_string += ";"
+	output_file.write(output_string)
 	output_file.write('\n')
 
 def makeforcpp(words_in_line):
 	global indent
-	output_string = indent "for(int "
+	output_string = indent + "for(int "
 	output_string += words_in_line[1]
 	output_string += " = "
 	output_string += words_in_line[3]
@@ -44,27 +44,30 @@ def makeforcpp(words_in_line):
 	output_string += "++) {\n"
 	output_file.write(output_string)
 	next_line = nextline()
-	indent =+ "\t"
+	indent += "\t"
 	while next_line[0] != 'endfor':
 		checkToken(next_line)
 		next_line = nextline()
 	indent = indent[0:len(indent)-3]
-	output_file.write('}\n') 
+	output_file.write(indent + '}\n') 
 
 def makefunccpp(words_in_line):
-	output_string = words_in_line[3]
+	global indent
+	output_string = indent + words_in_line[3]
 	output_string += " " 
 	output_string += words_in_line[1]
 	output_string += "() {\n"
 	output_file.write(output_string)
 	next_line = nextline()
+	indent += "\t"
 	while next_line[0] != 'endfunc':
 		checkToken(next_line)
 		next_line = nextline()
+	indent = indent[0:len(indent)-3]
 	output_file.write('}\n')
 
 def printvariable(words_in_line):
-	output_string = ""
+	output_string = indent
 	for word in words_in_line:
 		output_string += word
 		output_string += " "
@@ -88,7 +91,7 @@ def makeElsecpp(words_in_line):
 	output_file.write(output_string+"\n")
 	indent += "\t"
 
-def makeElseIfcpp(words_in_line)
+def makeElseIfcpp(words_in_line):
 	global indent
 	indent = indent[0:len(indent)-3]
 	output_string = indent + "} else if ( "
@@ -130,7 +133,7 @@ cpp_reserved = {
         ',' : '<<',
         'for' : makeforcpp,
 	'func' : makefunccpp,
-	',' : '<<'
+	',' : '<<',
 
         # loop tokens
 
