@@ -1,10 +1,14 @@
 cpp = {
-	'var' : 'auto'
-	'function' : makeFunction
-	'loop' : makeLoop
-	'print' : writePrint
+	# print tokens
+	'var' : 'auto',
+	'print' : 'cout <<',
+	',' : '<<'
 
-
+	# loop tokens
+	
 }
 
-py={'print':'print'}
+py = { 
+	'print' : 'print(',
+	',' : '+',
+}
