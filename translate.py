@@ -18,10 +18,12 @@ def startfile():
 	output_file.write('#include <iostream>\n')
 	output_file.write('using namespace std;\n\n')
 	output_file.write('int main() {\n')
+	global indent
+	indent += "\t"
 
 def makeprintcpp(printOutput):
 	printOutput.pop(0)
-	output_string = "cout  "
+	output_string = indent + "cout  "
 	for word in printOutput:
 		output_string += "<<"
 		output_string += word
@@ -30,7 +32,8 @@ def makeprintcpp(printOutput):
 	output_file.write('\n')
 
 def makeforcpp(words_in_line):
-	output_string = "for(int "
+	global indent
+	output_string = indent "for(int "
 	output_string += words_in_line[1]
 	output_string += " = "
 	output_string += words_in_line[3]
@@ -43,9 +46,11 @@ def makeforcpp(words_in_line):
 	output_string += "++) {\n"
 	output_file.write(output_string)
 	next_line = nextline()
+	indent =+ "\t"
 	while next_line[0] != 'endfor':
 		checkToken(next_line)
 		next_line = nextline()
+	indent = indent[0:len(indent)-3]
 	output_file.write('}\n') 
 
 def makeIfcpp(words_in_line):
