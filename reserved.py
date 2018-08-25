@@ -1,2 +1,9 @@
-tmp={'print':'print`'}
-print("hello world!")
+cpp = {
+	'var' : 'auto'
+	'function' : makeFunction
+	'loop' : makeLoop
+	'print' : writePrint
+
+
+}
+
