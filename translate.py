@@ -15,13 +15,13 @@ def endfile() :
 def startfile():
         output_file.write('#include <iostream>\n')
         output_file.write('using namespace std;\n\n')
-	output_file.write('int main() {\n')
+	#output_file.write('int main() {\n')
 
 def makeprintcpp(printOutput):
 	printOutput.pop(0)
-        output_string = "cout  "
+        output_string = "cout "
         for word in printOutput:
-                output_string += "<<"
+                output_string += " << "
                 output_string += word
         output_string += ";"
         output_file.write(output_string)
@@ -46,6 +46,26 @@ def makeforcpp(words_in_line):
 		next_line = nextline()
 	output_file.write('}\n') 
 
+def makefunccpp(words_in_line):
+	output_string = words_in_line[3]
+	output_string += " " 
+	output_string += words_in_line[1]
+	output_string += "() {\n"
+	output_file.write(output_string)
+	next_line = nextline()
+	while next_line[0] != 'endfunc':
+		checkToken(next_line)
+		next_line = nextline()
+	output_file.write('}\n')
+
+def printvariable(words_in_line):
+	output_string = ""
+	for word in words_in_line:
+		output_string += word
+		output_string += " "
+	output_string += ";\n"
+	output_file.write(output_string)
+
 def nextline():
 	global current_line
 	if current_line >= len(content):
@@ -56,14 +76,21 @@ def nextline():
 	return words
 
 def checkToken(words_in_line):
+	if len(words_in_line) == 0:
+		output_file.write('\n')
+		return
 	if language == 'c++':
-		cpp_reserved[words_in_line[0]](words_in_line)
+		if words_in_line[0] in cpp_reserved:
+			cpp_reserved[words_in_line[0]](words_in_line)
+		else:
+			printvariable(words_in_line)
 		
 cpp_reserved = {
         # print tokens
         'var' : 'auto',
         'print' : makeprintcpp,
         'for' : makeforcpp,
+	'func' : makefunccpp,
 	',' : '<<'
 
         # loop tokens
@@ -79,4 +106,4 @@ startfile()
 while current_line < len(content):
 	words_in_line  = nextline()
 	checkToken(words_in_line)
-endfile()
+#endfile()
