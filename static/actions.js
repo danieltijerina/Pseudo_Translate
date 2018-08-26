@@ -5,6 +5,9 @@ var edges = [];
 var nodes = [];
 
 $( document ).ready(function() {
+  $(document).one('click', function() {
+    insertShape('circle');
+  });
 
   $(document).on("dblclick",".shape",function (e) {
     console.log($(this).attr('id'));
