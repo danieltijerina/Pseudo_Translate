@@ -22,3 +22,10 @@
 	background-color: #7FDBFF;
 	transform: rotate(45deg);
 } 
+
+.circle {
+  height: 50px;
+  width: 50px;
+  background-color: #7FDBFF;
+  border-radius: 50%;
+}

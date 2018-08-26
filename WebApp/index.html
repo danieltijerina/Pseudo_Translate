@@ -3,15 +3,42 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="actions.js"></script>
-	<title>draggable</title>
+	<title>Code 4 Us</title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 </head>
 <body>
-	<span onclick="insertShape('diamond', 1)">Create Diamond</span>
-	<br>
-	<span onclick="insertShape('rectangle', 2)">Create Rectangle</span>
-	<br>
-	<span onclick="endpointsInfo()">Endpoints info</span>
+
+	<nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Code 4 Us</a>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-lg" id="btn-editor">  Export  </button>
+            </div>
+          </div><!-- /.container-fluid -->
+        </nav>
+
+	<div id="button_picker" class="col-md-2" style="height: 100%">
+            <div class="row-md-1">
+                <span onclick="insertShape('diamond', 1)"><button type="button" class="btn btn-primary btn-lg">  Create Diamond  </button></span>
+                <br>
+                <br>
+            </div>
+            <div class="row-md-2">
+                <span onclick="insertShape('rectangle', 2)"><button type="button" class="btn btn-primary btn-lg">  Create Rectangle  </button></span>
+                <br>
+                <br>
+            </div>
+            <div class="row-md-3">
+                <span onclick="endpointsInfo()"><button type="button" class="btn btn-primary btn-lg">  Endpoints Info  </button></span>
+            </div>
+    </div>
 
 	<!--Draggable DIV:-->
 	<div id="mydiv">
