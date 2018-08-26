@@ -1,0 +1,7 @@
+func test returns void
+	for x = 2 to 5
+	print "This is a test print"
+	endfor
+endfunc
+test()
+test()
