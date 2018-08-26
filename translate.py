@@ -122,7 +122,7 @@ def makeforpy(words_in_line):
 	while next_line[0] != 'endfor':
                 checkToken(next_line)
                 next_line = nextline()
-        indent = indent[0:len(indent)-3]
+        indent = indent[0:len(indent)-1]
 
 def makefuncpy(words_in_line):
 	global indent
@@ -133,8 +133,58 @@ def makefuncpy(words_in_line):
         while next_line[0] != 'endfunc':
                 checkToken(next_line)
                 next_line = nextline()
-        indent = indent[0:len(indent)-3]
+        indent = indent[0:len(indent)-1]
         output_file.write('\n')
+
+def makeIfpy(words_in_line):
+	words_in_line.pop(0)
+	global indent
+	output_string = indent + "if "
+	for word in words_in_line:
+		output_string += word + " "
+	output_string += ": \n "
+	output_file.write(output_string)
+	indent += "\t"
+	next_line = nextline()
+	while next_line[0] != 'endif' and next_line[0] != 'else' and next_line[0] != 'elif':
+		checkToken(next_line)
+                next_line = nextline()
+	indent = indent[0:len(indent)-1]
+	checkToken(next_line)
+
+def makeEndIfpy(words_in_line):
+	global indent
+	output_file.write("\n")
+
+def makeElseIfpy(words_in_line):
+	global indent
+        words_in_line.pop(0)
+        output_string = indent + "elif "
+        for word in words_in_line:
+                output_string += word + " "
+        output_string += ": \n"
+        output_file.write(output_string)
+        indent += "\t"
+	next_line = nextline()
+	while next_line[0] != 'endif' and next_line[0] != 'else':
+		checkToken(next_line)
+                next_line = nextline()
+        indent = indent[0:len(indent)-1]
+        checkToken(next_line)
+
+def makeElsepy(words_in_line):
+	global indent
+	#print len(indent)
+	#indent = indent[0:len(indent)-1]
+	output_string = indent + "else: \n"
+	output_file.write(output_string)
+	indent += "\t"
+	next_line = nextline()
+	while next_line[0] != 'endif':
+                checkToken(next_line)
+                next_line = nextline()
+        indent = indent[0:len(indent)-1]
+        checkToken(next_line)
 
 def nextline():
 	global current_line
@@ -183,6 +233,10 @@ py_reserved = {
         'print' : makeprintpy,
         'for' : makeforpy,
 	'func' : makefuncpy,
+	'if' : makeIfpy,
+	'elif' : makeElseIfpy,
+	'else' : makeElsepy,
+	'endif' : makeEndIfpy,	
 	',' : '+',
 }		
 
