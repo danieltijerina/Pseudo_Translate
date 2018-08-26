@@ -1,6 +1,16 @@
 import sys
-#from reserved import py_reserved, cpp_reserved 
+#from reserved import py_reserved, cpp_reserved
 import shlex
+
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+	return render_template('index.html')
+
+if __name__ == "__main__":
+	app.run()
 
 current_line = 0
 
@@ -15,9 +25,9 @@ elif language == "py":
 content = my_file.readlines()
 
 def startfile():
-        if language == "c++":
+	if language == "c++":
 		output_file.write('#include <iostream>\n')
-        	output_file.write('using namespace std;\n\n')
+		output_file.write('using namespace std;\n\n')
 
 def makeprintcpp(printOutput):
 	printOutput.pop(0)
