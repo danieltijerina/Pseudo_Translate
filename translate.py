@@ -2,15 +2,20 @@ import sys
 #from reserved import py_reserved, cpp_reserved
 import shlex
 
-#from flask import Flask, render_template, request
-#app = Flask(__name__)
+from flask import Flask, render_template, request
+app = Flask(__name__)
 
-#@app.route("/")
-#def index():
-#	return render_template('index.html')
+@app.route("/")
+def index():
+	return render_template('index.html')
 
-#if __name__ == "__main__":
-#	app.run()
+@app.route("/cpp", methods=['GET', 'POST'])
+def cpp():
+	print(str(request.values))
+	return render_template('index.html')
+
+if __name__ == "__main__":
+	app.run()
 
 current_line = 0
 
@@ -79,12 +84,12 @@ def makewhilecpp(words_in_line):
 	output_string += ") {\n"
 	output_file.write(output_string);
 	next_line = nextline()
-        indent += "\t"
-        while next_line[0] != 'endwhile':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-3]
-        output_file.write(indent + '}\n')
+	indent += "\t"
+	while next_line[0] != 'endwhile':
+		checkToken(next_line)
+		next_line = nextline()
+	indent = indent[0:len(indent)-3]
+	output_file.write(indent + '}\n')
 
 
 def printvariable(words_in_line):
@@ -99,8 +104,7 @@ def printvariable(words_in_line):
 	else:
 		output_string = indent
 	for word in words_in_line:
- 		output_string += word
-		output_string += " "
+ 		output_string += word + " "
 	output_string += ";\n"
 	output_file.write(output_string)
 
@@ -163,25 +167,25 @@ def makeforpy(words_in_line):
 	next_line = nextline()
 	indent += "\t"
 	while next_line[0] != 'endfor':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-1]
+		checkToken(next_line)
+		next_line = nextline()
+	indent = indent[0:len(indent)-1]
 
 def makewhilepy(words_in_line):
 	global indent
-        output_string = indent + "while "
-        words_in_line.pop(0)
-        for word in words_in_line:
-                output_string += word + " "
-        output_string += ": \n"
-        output_file.write(output_string);
-        next_line = nextline()
-        indent += "\t"
-        while next_line[0] != 'endwhile':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-3]
-        output_file.write(indent + '\n')
+	output_string = indent + "while "
+	words_in_line.pop(0)
+	for word in words_in_line:
+		output_string += word + " "
+	output_string += ": \n"
+	output_file.write(output_string);
+	next_line = nextline()
+	indent += "\t"
+	while next_line[0] != 'endwhile':
+	    checkToken(next_line)
+	    next_line = nextline()
+	indent = indent[0:len(indent)-3]
+	output_file.write(indent + '\n')
 
 def makefuncpy(words_in_line):
 	global indent
@@ -189,11 +193,11 @@ def makefuncpy(words_in_line):
 	output_file.write(output_string)
 	indent += "\t"
 	next_line = nextline()
-        while next_line[0] != 'endfunc':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-1]
-        output_file.write('\n')
+	while next_line[0] != 'endfunc':
+		checkToken(next_line)
+		next_line = nextline()
+	indent = indent[0:len(indent)-1]
+	output_file.write('\n')
 
 def makeIfpy(words_in_line):
 	words_in_line.pop(0)
@@ -207,7 +211,7 @@ def makeIfpy(words_in_line):
 	next_line = nextline()
 	while next_line[0] != 'endif' and next_line[0] != 'else' and next_line[0] != 'elif':
 		checkToken(next_line)
-                next_line = nextline()
+		next_line = nextline()
 	indent = indent[0:len(indent)-1]
 	checkToken(next_line)
 
@@ -217,19 +221,19 @@ def makeEndIfpy(words_in_line):
 
 def makeElseIfpy(words_in_line):
 	global indent
-        words_in_line.pop(0)
-        output_string = indent + "elif "
-        for word in words_in_line:
-                output_string += word + " "
-        output_string += ": \n"
-        output_file.write(output_string)
-        indent += "\t"
+	words_in_line.pop(0)
+	output_string = indent + "elif "
+	for word in words_in_line:
+		output_string += word + " "
+	output_string += ": \n"
+	output_file.write(output_string)
+	indent += "\t"
 	next_line = nextline()
 	while next_line[0] != 'endif' and next_line[0] != 'else':
 		checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-1]
-        checkToken(next_line)
+		next_line = nextline()
+		indent = indent[0:len(indent)-1]
+		checkToken(next_line)
 
 def makeElsepy(words_in_line):
 	global indent
@@ -240,10 +244,10 @@ def makeElsepy(words_in_line):
 	indent += "\t"
 	next_line = nextline()
 	while next_line[0] != 'endif':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-1]
-        checkToken(next_line)
+		checkToken(next_line)
+		next_line = nextline()
+	indent = indent[0:len(indent)-1]
+	checkToken(next_line)
 
 def nextline():
 	global current_line
