@@ -1,8 +1,8 @@
 import sys
-#from reserved import py_reserved, cpp_reserved 
+#from reserved import py_reserved, cpp_reserved
 import shlex
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route("/")
@@ -25,9 +25,9 @@ elif language == "py":
 content = my_file.readlines()
 
 def startfile():
-        if language == "c++":
+	if language == "c++":
 		output_file.write('#include <iostream>\n')
-        	output_file.write('using namespace std;\n\n')
+		output_file.write('using namespace std;\n\n')
 
 def makeprintcpp(printOutput):
 	printOutput.pop(0)
@@ -132,7 +132,7 @@ def makeforpy(words_in_line):
 	while next_line[0] != 'endfor':
                 checkToken(next_line)
                 next_line = nextline()
-        indent = indent[0:len(indent)-3]
+	indent = indent[0:len(indent)-3]
 
 def makefuncpy(words_in_line):
 	global indent
@@ -140,11 +140,11 @@ def makefuncpy(words_in_line):
 	output_file.write(output_string)
 	indent += "\t"
 	next_line = nextline()
-        while next_line[0] != 'endfunc':
-                checkToken(next_line)
-                next_line = nextline()
-        indent = indent[0:len(indent)-3]
-        output_file.write('\n')
+	while next_line[0] != 'endfunc':
+		checkToken(next_line)
+		next_line = nextline()
+	indent = indent[0:len(indent)-3]
+	output_file.write('\n')
 
 def nextline():
 	global current_line
