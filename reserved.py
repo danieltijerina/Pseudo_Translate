@@ -1,14 +1,14 @@
-cpp = {
+cpp_reserved = {
 	# print tokens
 	'var' : 'auto',
-	'print' : 'cout <<',
+	'print' : makeprint,
 	',' : '<<'
-
+	
 	# loop tokens
 	
 }
 
-py = { 
+py_reserved = { 
 	'print' : 'print(',
 	',' : '+',
 }
