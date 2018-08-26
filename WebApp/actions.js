@@ -5,6 +5,9 @@ var edges = [];
 var nodes = [];
 
 $( document ).ready(function() {
+  $(document).one('click', function() {
+    insertShape('circle');
+  });
 
   $(document).on("dblclick",".shape",function (e) {
     console.log($(this).attr('id'));
@@ -44,20 +47,22 @@ function endpointsInfo(){
     edges.push(item);
 
     if(!set.has(item['source'])){
-      node_item[item['source']] = $('#'+item['source']).text();
+      node_item['id']=item['source'];
+      node_item['text'] = $('#'+item['source']).text();
       set.add(item['source']);
       nodes.push(node_item);
       node_item={};
     }
     if(!set.has(item['target'])){
-      node_item[item['target']] = $('#'+item['target']).text();
+      node_item['id']=item['target'];
+      node_item['text'] = $('#'+item['target']).text();
       set.add(item['target']);
       nodes.push(node_item);
       node_item={};
     }
   }
-  console.log(edges);
-  console.log(nodes);
+  console.log(JSON.stringify(edges));
+  console.log(JSON.stringify(nodes));
 }
 
 function addArrow(){
@@ -93,21 +98,21 @@ function addArrow(){
   }
 }
 
-function readText(){
-  console.log($(this));
-  var text = prompt("Enter text", "x=0");
-  console.log(text);
-  $('#newid1').innerHTML = text;
-}
-
 function insertShape(geo_form){
   var shape = $('#mydiv').clone();
-  newid="newid"+currentId.toString();
-  currentId++;
+  if(geo_form!='circle'){
+    newid="newid"+currentId.toString();
+    currentId++;
+  } else {
+    newid='start';
+  }
   shape.attr('id', newid)
   shape.addClass("shape");
   shape.addClass(geo_form);
   shape.appendTo(document.body);
+  if(geo_form=='circle'){
+    shape.text('START');
+  }
   jsPlumb.draggable(newid);
 
   var endpointOptions = {isSource:true};
