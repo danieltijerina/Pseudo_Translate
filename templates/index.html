@@ -1,62 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Editor</title>
-    <style type="text/css" media="screen">
-    body {
-        overflow: hidden;
-    }
-    html, body {
-        height: 100%;
-    }
-    #editor {
-        margin: 0;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-    #button_picker {
-        background-color: #dcdcdc;
-    }
-    .navbar {
-        margin-bottom: 0;
-    }
-    </style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='actions.js')}}"></script>
+	<title>draggable</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
 </head>
-    <body>
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Whatever</a>
-            </div>
-          </div><!-- /.container-fluid -->
-        </nav>
+<body>
+	<span onclick="insertShape('diamond', 1)">Create Diamond</span>
+	<br>
+	<span onclick="insertShape('rectangle', 2)">Create Rectangle</span>
+	<br>
+	<span onclick="endpointsInfo()">Endpoints info</span>
+    <br>
+    <span onclick="sendGraphCPP()">Export CPP</span>
 
-        <div id="button_picker" class="col-md-2" style="height: 100%">
+	<!--Draggable DIV:-->
+	<div id="mydiv">
+	  <div id="mydivheader"></div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.8/js/jsplumb.min.js"></script>
+    <script>
+        jsPlumb.ready(function() {
+            jsPlumb.connect({
+                source:"item_left",
+                target:"item_right",
+                endpoint:"Rectangle",
+                overlays:[ 
+                    ["Arrow" , { width:12, length:12, location:0.67 }]
+                ]
+            });
             
-        </div>
-
-        <div class="container col-md-10" style="height:100%">
-<pre id="editor">function foo(items) {
-    var i;
-    for (i = 0; i &lt; items.length; i++) {
-        alert("Ace Rocks " + items[i]);
-    }
-}</pre>
-        </div>
-
-        <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script>
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/twilight");
-            editor.session.setMode("ace/mode/text");
-        </script>
-    </body>
+            jsPlumb.draggable("item_left");
+            jsPlumb.draggable("item_right");
+        });
+    </script>
+</body>
 </html>
