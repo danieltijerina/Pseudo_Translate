@@ -18,7 +18,4 @@ for edge in Edges:
 #plt.show()
 print(G.nodes[u'start'])
 print(G[u'question1'])
-#print(G)
-#pprint(Edges)
 
-#pprint(data)
