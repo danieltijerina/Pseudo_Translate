@@ -1,2 +1,2 @@
 # Pseudo_Translate
-Programming language translator from pseudo code to Python and C++.
+Web based app that provides UI for flowchart creation and allows exportation to Python and C++. (Project Underway)
